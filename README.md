@@ -47,14 +47,14 @@ If you face any issues with `install-peerdeps`, run following commands
 Start the development server
 
 ```bash
-  npm run start:dev
+  npm run dev
 ```
 
 ## Related
 
 Here is the client application that uses this project
 
-[GoalQuest frontend](https://github.com/link-to-GoalQuest_frontend)
+[GoalQuest frontend](https://github.com/yograjtandel/GoalQuest)
 
 ## License
 

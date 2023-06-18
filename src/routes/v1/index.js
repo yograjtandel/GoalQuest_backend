@@ -1,7 +1,7 @@
 const express = require('express');
 const roleRoute = require('./role.route');
 const userRoute = require('./user.route');
-const projectRote = require('./project.route').default;
+const projectRote = require('./project.route');
 // const config = require('../../config/config');
 
 const router = express.Router();
