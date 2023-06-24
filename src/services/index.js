@@ -4,3 +4,4 @@ module.exports.roleService = require('./role.service');
 module.exports.stageService = require('./stage.service');
 module.exports.tagService = require('./tag.service');
 module.exports.taskService = require('./task.service');
+module.exports.rightService = require('./right.service');

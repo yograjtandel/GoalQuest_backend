@@ -1,5 +1,5 @@
 const express = require('express');
-const projectController = require('../../controllers/project.controller');
+const {projectController} = require('../../controllers');
 const permission = require('../../middlewares/permission');
 
 const router = express.Router();

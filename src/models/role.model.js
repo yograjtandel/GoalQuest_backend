@@ -26,17 +26,6 @@ roleSchema.plugin(toJSON);
 roleSchema.plugin(paginate);
 
 /**
- * Check if email is taken
- * @param {string} name - The user's email
- * @param {ObjectId} [excludeRoleId] - The id of the user to be excluded
- * @returns {Promise<boolean>}
- */
-roleSchema.statics.isRoleTaken = async function (name, excludeRoleId) {
-  const role = await this.findOne({name, _id: {$ne: excludeRoleId}});
-  return !!role;
-};
-
-/**
  * @typedef Role
  */
 const Role = mongoose.model('role', roleSchema);

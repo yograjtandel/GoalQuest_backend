@@ -2,6 +2,8 @@
 module.exports.userController = require('./user.controller');
 module.exports.projectController = require('./project.controller');
 module.exports.roleController = require('./role.controller');
+module.exports.rightController = require('./rights.controller');
 module.exports.stageController = require('./stage.controller');
 module.exports.tagController = require('./tag.controller');
-module.exports.userController = require('./task.controller');
+module.exports.taskController = require('./task.controller');
+module.exports.userController = require('./user.controller');
