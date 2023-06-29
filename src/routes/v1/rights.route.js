@@ -7,13 +7,13 @@ const router = express.Router();
 router
   .route('/')
   //   .post(auth('managerights'), validate(rightValidation.createright), rightController.createright)
-  .post(rightController.createRole)
-  .get(rightController.getRoles);
+  .post(rightController.createRight)
+  .get(rightController.getRights);
 
 router
   .route('/:rightId')
-  .get(rightController.getRole)
-  .patch(rightController.updateRole)
-  .delete(rightController.deleteRole);
+  .get(rightController.getRight)
+  .patch(rightController.updateRight)
+  .delete(rightController.deleteRight);
 
 module.exports = router;

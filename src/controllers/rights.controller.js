@@ -9,7 +9,7 @@ const createRight = async (req, res) => {
 };
 
 const getRights = async (req, res) => {
-  const filter = pick(req.query, ['name', 'role']);
+  const filter = pick(req.query, ['name']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await rightService.queryRights(filter, options);
   res.send(result);

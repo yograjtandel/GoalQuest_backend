@@ -1,0 +1,25 @@
+{"name": "create_project", "display_name": "Create Project"}
+{"name": "read_project", "display_name": "read Project"}
+{"name": "update_project", "display_name": "update Project"}
+{"name": "delete_project", "display_name": "delete Project"}
+{"name": "create_role", "display_name": "create role"}
+{"name": "read_role", "display_name": "read role"}
+{"name": "update_role", "display_name": "update role"}
+{"name": "delete_role", "display_name": "delete role"}
+{"name": "create_stage", "display_name": "create stage"}
+{"name": "read_stage", "display_name": "read stage"}
+{"name": "update_stage", "display_name": "update stage"}
+{"name": "delete_stage", "display_name": "delete stage"} 
+{"name": "create_tag", "display_name": "create tag"}
+{"name": "read_tag", "display_name": "read tag"}
+{"name": "update_tag", "display_name": "update tag"}
+{"name": "delete_tag", "display_name": "delete tag"}
+{"name": "create_task", "display_name": "create task"}
+{"name": "read_task", "display_name": "read task"}
+{"name": "update_task", "display_name": "update task"}
+{"name": "delete_task", "display_name": "delete task"}
+{"name": "create_user", "display_name": "create user"}
+{"name": "read_user", "display_name": "read user"}
+{"name": "update_user", "display_name": "update user"}
+{"name": "delete_user", "display_name": "delete user"}
+{"name": "all", "display_name": "All"}

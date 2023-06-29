@@ -3,7 +3,7 @@ const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const {stagesService} = require('../services');
 
-const createStages = async (req, res) => {
+const createStage = async (req, res) => {
   const stages = await stagesService.createStages(req.body);
   res.status(httpStatus.CREATED).send(stages);
 };
@@ -23,7 +23,7 @@ const getStage = async (req, res) => {
   res.send(stages);
 };
 
-const updateStages = async (req, res) => {
+const updateStage = async (req, res) => {
   const stages = await stagesService.updateStagesById(
     req.params.stagesId,
     req.body
@@ -31,15 +31,15 @@ const updateStages = async (req, res) => {
   res.send(stages);
 };
 
-const deleteStages = async (req, res) => {
+const deleteStage = async (req, res) => {
   await stagesService.deleteStagesById(req.params.stagesId);
   res.status(httpStatus.NO_CONTENT).send();
 };
 
 module.exports = {
-  createStages,
+  createStage,
   getStages,
   getStage,
-  updateStages,
-  deleteStages,
+  updateStage,
+  deleteStage,
 };

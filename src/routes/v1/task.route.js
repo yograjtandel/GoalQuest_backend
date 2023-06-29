@@ -1,19 +1,19 @@
 const express = require('express');
 // const auth = require('../../middlewares/auth');
-const taskController = require('../../controllers');
+const {taskController} = require('../../controllers');
 
 const router = express.Router();
 
 router
   .route('/')
   //   .post(auth('managetasks'), validate(taskValidation.createtask), taskController.createtask)
-  .post(taskController.createRole)
-  .get(taskController.getRoles);
+  .post(taskController.createTask)
+  .get(taskController.getTasks);
 
 router
   .route('/:taskId')
-  .get(taskController.getRole)
-  .patch(taskController.updateRole)
-  .delete(taskController.deleteRole);
+  .get(taskController.getTask)
+  .patch(taskController.updateTask)
+  .delete(taskController.deleteTask);
 
 module.exports = router;

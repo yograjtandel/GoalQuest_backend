@@ -8,9 +8,10 @@ const rightSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    createdBy: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user',
+    display_name: {
+      type: String,
+      required: true,
+      trim: true,
     },
   },
   {

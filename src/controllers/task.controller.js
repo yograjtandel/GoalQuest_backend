@@ -3,7 +3,7 @@ const pick = require('../utils/pick');
 const ApiError = require('../utils/ApiError');
 const {tasksService} = require('../services');
 
-const createTasks = async (req, res) => {
+const createTask = async (req, res) => {
   const tasks = await tasksService.createTasks(req.body);
   res.status(httpStatus.CREATED).send(tasks);
 };
@@ -23,7 +23,7 @@ const getTask = async (req, res) => {
   res.send(tasks);
 };
 
-const updateTasks = async (req, res) => {
+const updateTask = async (req, res) => {
   const tasks = await tasksService.updateTasksById(
     req.params.tasksId,
     req.body
@@ -31,15 +31,15 @@ const updateTasks = async (req, res) => {
   res.send(tasks);
 };
 
-const deleteTasks = async (req, res) => {
+const deleteTask = async (req, res) => {
   await tasksService.deleteTasksById(req.params.tasksId);
   res.status(httpStatus.NO_CONTENT).send();
 };
 
 module.exports = {
-  createTasks,
+  createTask,
   getTasks,
   getTask,
-  updateTasks,
-  deleteTasks,
+  updateTask,
+  deleteTask,
 };
