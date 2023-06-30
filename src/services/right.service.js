@@ -19,7 +19,12 @@ const createRight = async rightBody => Right.create(rightBody);
  * @returns {Promise<QueryResult>}
  */
 const queryRights = async (filter, options) => {
-  const rights = await Right.paginate(filter, options);
+  let rights;
+  //   if (filter && options) {
+  rights = await Right.paginate(filter, options);
+  //   } else {
+  //     rights = await Right.find();
+  //   }
   return rights;
 };
 
