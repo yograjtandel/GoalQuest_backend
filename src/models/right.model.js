@@ -1,19 +1,17 @@
 const mongoose = require('mongoose');
 const {toJSON, paginate} = require('./plugins');
 
-const roleSchema = mongoose.Schema(
+const rightSchema = mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
       trim: true,
     },
-    rights: {
-      type: [String],
-    },
-    createdBy: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user',
+    display_name: {
+      type: String,
+      required: true,
+      trim: true,
     },
   },
   {
@@ -22,12 +20,12 @@ const roleSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-roleSchema.plugin(toJSON);
-roleSchema.plugin(paginate);
+rightSchema.plugin(toJSON);
+rightSchema.plugin(paginate);
 
 /**
  * @typedef Role
  */
-const Role = mongoose.model('role', roleSchema);
+const Role = mongoose.model('right', rightSchema);
 
 module.exports = Role;

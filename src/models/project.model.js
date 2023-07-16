@@ -16,6 +16,10 @@ const projectSchema = mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user',
     },
+    stage: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'stage',
+    },
   },
   {
     timestamps: true,

@@ -23,17 +23,6 @@ tagSchema.plugin(toJSON);
 tagSchema.plugin(paginate);
 
 /**
- * Check if email is taken
- * @param {string} title - The user's email
- * @param {ObjectId} [excludeStageId] - The id of the user to be excluded
- * @returns {Promise<boolean>}
- */
-tagSchema.statics.isStageTaken = async function (title, excludeStageId) {
-  const tag = await this.findOne({title, _id: {$ne: excludeStageId}});
-  return !!tag;
-};
-
-/**
  * @typedef Stage
  */
 const Tag = mongoose.model('tag', tagSchema);

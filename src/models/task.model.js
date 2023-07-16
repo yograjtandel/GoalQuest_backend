@@ -28,8 +28,7 @@ const taskSchema = mongoose.Schema(
       ref: 'user',
     },
     asignee: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user',
+      type: [mongoose.SchemaTypes.ObjectId],
     },
     parent_task: {
       type: mongoose.SchemaTypes.ObjectId,

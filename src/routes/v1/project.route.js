@@ -1,5 +1,5 @@
 const express = require('express');
-const projectController = require('../../controllers/project.controller');
+const {projectController} = require('../../controllers');
 const permission = require('../../middlewares/permission');
 
 const router = express.Router();
@@ -7,7 +7,8 @@ const router = express.Router();
 router
   .route('/')
   //   .post(auth('manageProjects'), validate(projectValidation.createProject), projectController.createProject)
-  .post(permission('manage_project'), projectController.createProject)
+  //   .post(permission('manage_project'), projectController.createProject)
+  .post(projectController.createProject)
   .get(projectController.getProjects);
 
 router

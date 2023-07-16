@@ -7,7 +7,7 @@ const ApiError = require('../utils/ApiError');
  * @param {Object} tagBody
  * @returns {Promise<Tag>}
  */
-const createTag = async tagBody => Tag.create(tagBody);
+const createTags = async tagBody => Tag.create(tagBody);
 
 /**
  * Query for tags
@@ -61,7 +61,7 @@ const deleteTagById = async tagId => {
 };
 
 module.exports = {
-  createTag,
+  createTags,
   queryTags,
   getTagById,
   updateTagById,
