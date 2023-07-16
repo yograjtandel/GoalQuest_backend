@@ -5,3 +5,4 @@ module.exports.Stage = require('./stage.model');
 module.exports.Tag = require('./tag.model');
 module.exports.Task = require('./task.model');
 module.exports.Right = require('./right.model');
+module.exports.TimeLog = require('./timelog.model');

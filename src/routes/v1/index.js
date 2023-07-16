@@ -32,11 +32,11 @@ const defaultRoutes = [
     route: taskRoute,
   },
   {
-    path: '/roles',
+    path: '/role',
     route: roleRoute,
   },
   {
-    path: '/users',
+    path: '/user',
     route: userRoute,
   },
 ];
