@@ -10,6 +10,8 @@ router
   .post(taskController.createTask)
   .get(taskController.getTasks);
 
+router.route('/taskinitialdata').get(taskController.getTaskinitialData);
+
 router
   .route('/:taskId')
   .get(taskController.getTask)

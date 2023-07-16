@@ -7,7 +7,8 @@ const router = express.Router();
 router
   .route('/')
   //   .post(auth('manageProjects'), validate(projectValidation.createProject), projectController.createProject)
-  .post(permission('manage_project'), projectController.createProject)
+  //   .post(permission('manage_project'), projectController.createProject)
+  .post(projectController.createProject)
   .get(projectController.getProjects);
 
 router
