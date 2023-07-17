@@ -31,10 +31,10 @@ const taskSchema = mongoose.Schema(
       type: [mongoose.SchemaTypes.ObjectId],
     },
     parent_task: {
-      type: mongoose.SchemaTypes.ObjectId,
+      type: [mongoose.SchemaTypes.ObjectId],
     },
     child_task: {
-      type: mongoose.SchemaTypes.ObjectId,
+      type: [mongoose.SchemaTypes.ObjectId],
     },
     stage: {
       type: mongoose.SchemaTypes.ObjectId,
