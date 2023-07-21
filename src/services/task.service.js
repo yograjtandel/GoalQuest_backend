@@ -23,6 +23,13 @@ const queryTasks = async (filter, options) => {
   return tasks;
 };
 
+const getGroupbyTask = async group => {
+  const res = await Task.aggregate([
+    {$group: {_id: `$${group.group}`, tasks: {$push: '$$ROOT'}}},
+  ]);
+  return res;
+};
+
 /**
  * Get task by id
  * @param {ObjectId} id
@@ -63,6 +70,7 @@ const deleteTaskById = async taskId => {
 module.exports = {
   createTask,
   queryTasks,
+  getGroupbyTask,
   getTaskById,
   updateTaskById,
   deleteTaskById,

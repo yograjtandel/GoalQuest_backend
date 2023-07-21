@@ -8,6 +8,7 @@ const stageSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    display_sequence: {type: Number, required: true},
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user',

@@ -21,23 +21,31 @@ const getTaskinitialData = async (req, res) => {
   const users = await userService.queryUsers(filter, options);
   const tags = await tagService.queryTags(filter, options);
   const stags = await stageService.queryStages(filter, options);
+  const managers = await userService.queryUsers(filter, options);
   res.send({
     projects: projects.results,
     users: users.results,
     tags: tags.results,
     stags: stags.results,
+    managers: managers.results,
   });
 };
 
 const getTasks = async (req, res) => {
   const filter = pick(req.query, ['name', 'task']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const group = pick(req.query, ['group']);
+  if (Object.keys(group).length !== 0) {
+    const tasks = await taskService.getGroupbyTask(group);
+    res.send(tasks);
+    return;
+  }
   const result = await taskService.queryTasks(filter, options);
   res.send(result);
 };
 
 const getTask = async (req, res) => {
-  const tasks = await taskService.getTasksById(req.params.tasksId);
+  const tasks = await taskService.getTaskById(req.params.tasksId);
   if (!tasks) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Tasks not found');
   }
@@ -45,12 +53,12 @@ const getTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-  const tasks = await taskService.updateTasksById(req.params.tasksId, req.body);
+  const tasks = await taskService.updateTaskById(req.params.taskId, req.body);
   res.send(tasks);
 };
 
 const deleteTask = async (req, res) => {
-  await taskService.deleteTasksById(req.params.tasksId);
+  await taskService.deleteTaskById(req.params.tasksId);
   res.status(httpStatus.NO_CONTENT).send();
 };
 

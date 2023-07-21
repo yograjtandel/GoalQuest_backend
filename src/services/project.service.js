@@ -23,6 +23,13 @@ const queryProjects = async (filter, options) => {
   return projects;
 };
 
+const getGroupbyProject = async group => {
+  const res = await Project.aggregate([
+    {$group: {_id: `$${group.group}`, projects: {$push: '$$ROOT'}}},
+  ]);
+  return res;
+};
+
 /**
  * Get project by id
  * @param {ObjectId} id
@@ -66,4 +73,5 @@ module.exports = {
   getProjectById,
   updateProjectById,
   deleteProjectById,
+  getGroupbyProject,
 };
