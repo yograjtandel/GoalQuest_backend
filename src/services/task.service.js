@@ -23,10 +23,67 @@ const queryTasks = async (filter, options) => {
   return tasks;
 };
 
+// [
+//     {
+//       $lookup: {
+//         from: 'stages',
+//         localField: 'stage',
+//         foreignField: '_id',
+//         as: 'stages',
+//       },
+//     },
+//     {
+//       $group: {_id: `$stages`, tasks: {$push: '$$ROOT'}},
+//     },
+//     {
+//       $sort: {
+//         '_id[0].display_sequence': -1,
+//       },
+//     },
+//   ]
 const getGroupbyTask = async group => {
   const res = await Task.aggregate([
-    {$group: {_id: `$${group.group}`, tasks: {$push: '$$ROOT'}}},
+    {
+      $lookup:
+        /**
+         * from: The target collection.
+         * localField: The local join field.
+         * foreignField: The target join field.
+         * as: The name for the results.
+         * pipeline: Optional pipeline to run on the foreign collection.
+         * let: Optional variables to use in the pipeline field stages.
+         */
+        {
+          from: 'stages',
+          localField: 'stage',
+          foreignField: '_id',
+          as: 'stageinfo',
+        },
+    },
+    {
+      $group:
+        /**
+         * _id: The id of the group.
+         * fieldN: The first field name.
+         */
+        {
+          _id: '$stageinfo',
+          tasks: {
+            $push: '$$ROOT',
+          },
+        },
+    },
+    {
+      $sort:
+        /**
+         * Provide any number of field/order pairs.
+         */
+        {
+          '_id[0].display_sequence': 1,
+        },
+    },
   ]);
+
   return res;
 };
 
