@@ -34,9 +34,9 @@ const getTaskinitialData = async (req, res) => {
 const getTasks = async (req, res) => {
   const filter = pick(req.query, ['name', 'task']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const group = pick(req.query, ['group']);
-  if (Object.keys(group).length !== 0) {
-    const tasks = await taskService.getGroupbyTask(group);
+  const aggregateOption = pick(req.query, ['group', 'sort']);
+  if (Object.keys(aggregateOption).length !== 0) {
+    const tasks = await taskService.getGroupbyTask(aggregateOption);
     res.send(tasks);
     return;
   }

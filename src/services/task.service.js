@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const {Task} = require('../models');
+const {Task, Stage} = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -29,20 +29,36 @@ const queryTasks = async (filter, options) => {
 //         from: 'stages',
 //         localField: 'stage',
 //         foreignField: '_id',
-//         as: 'stages',
+//         as: 'display_sequence',
 //       },
 //     },
 //     {
-//       $group: {_id: `$stages`, tasks: {$push: '$$ROOT'}},
+//       $set: {
+//         display_sequence: {
+//           $arrayElemAt: ['$display_sequence.display_sequence', 0],
+//         },
+//       },
+//     },
+//     {
+//       $group: {
+//         _id: {
+//           stage: `$${args.group}`,
+//           display_sequence: '$display_sequence',
+//         },
+//         tasks: {
+//           $push: '$$ROOT',
+//         },
+//       },
 //     },
 //     {
 //       $sort: {
-//         '_id[0].display_sequence': -1,
+//         '_id.display_sequence': args.sort || 1,
 //       },
 //     },
 //   ]
-const getGroupbyTask = async group => {
-  const res = await Task.aggregate([
+
+const getGroupbyTask = async args => {
+  const res = await Stage.aggregate([
     {
       $lookup:
         /**
@@ -54,23 +70,10 @@ const getGroupbyTask = async group => {
          * let: Optional variables to use in the pipeline field stages.
          */
         {
-          from: 'stages',
-          localField: 'stage',
-          foreignField: '_id',
-          as: 'stageinfo',
-        },
-    },
-    {
-      $group:
-        /**
-         * _id: The id of the group.
-         * fieldN: The first field name.
-         */
-        {
-          _id: '$stageinfo',
-          tasks: {
-            $push: '$$ROOT',
-          },
+          from: 'tasks',
+          localField: '_id',
+          foreignField: 'stage',
+          as: 'tasks',
         },
     },
     {
@@ -79,7 +82,7 @@ const getGroupbyTask = async group => {
          * Provide any number of field/order pairs.
          */
         {
-          '_id[0].display_sequence': 1,
+          display_sequence: args.sort || 1,
         },
     },
   ]);

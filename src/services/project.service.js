@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const {Project} = require('../models');
+const {Project, Stage} = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -23,9 +23,67 @@ const queryProjects = async (filter, options) => {
   return projects;
 };
 
-const getGroupbyProject = async group => {
-  const res = await Project.aggregate([
-    {$group: {_id: `$${group.group}`, projects: {$push: '$$ROOT'}}},
+// [
+//     {
+//       $lookup: {
+//         from: 'stages',
+//         localField: 'stage',
+//         foreignField: '_id',
+//         as: 'display_sequence',
+//       },
+//     },
+//     {
+//       $set: {
+//         display_sequence: {
+//           $arrayElemAt: ['$display_sequence.display_sequence', 0],
+//         },
+//       },
+//     },
+//     {
+//       $group: {
+//         _id: {
+//           stage: `$${args.group}`,
+//           display_sequence: '$display_sequence',
+//         },
+//         projects: {
+//           $push: '$$ROOT',
+//         },
+//       },
+//     },
+//     {
+//       $sort: {
+//         '_id.display_sequence': args.sort || 1,
+//       },
+//     },
+//   ]
+const getGroupbyProject = async args => {
+  const res = await Stage.aggregate([
+    {
+      $lookup:
+        /**
+         * from: The target collection.
+         * localField: The local join field.
+         * foreignField: The target join field.
+         * as: The name for the results.
+         * pipeline: Optional pipeline to run on the foreign collection.
+         * let: Optional variables to use in the pipeline field stages.
+         */
+        {
+          from: 'projects',
+          localField: '_id',
+          foreignField: 'stage',
+          as: 'projects',
+        },
+    },
+    {
+      $sort:
+        /**
+         * Provide any number of field/order pairs.
+         */
+        {
+          display_sequence: args.sort || 1,
+        },
+    },
   ]);
   return res;
 };
