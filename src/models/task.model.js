@@ -46,6 +46,10 @@ const taskSchema = mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'tag',
     },
+    time_logs: {
+      type: [mongoose.SchemaType.ObjectId],
+      ref: 'timelog',
+    },
   },
   {
     timestamps: true,

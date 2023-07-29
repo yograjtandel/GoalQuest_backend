@@ -4,7 +4,11 @@ const ApiError = require('../utils/ApiError');
 const {timelogService} = require('../services');
 
 const createTimelog = async (req, res) => {
-  const timelog = await timelogService.createTimelog(req.body);
+  const data = JSON.parse(req.body.data);
+  const timelog = await timelogService.createTimelog({
+    createdBy: req.body.createdBy,
+    ...data,
+  });
   res.status(httpStatus.CREATED).send(timelog);
 };
 
@@ -24,10 +28,11 @@ const getTimelog = async (req, res) => {
 };
 
 const updateTimelog = async (req, res) => {
-  const timelog = await timelogService.updateTimelogById(
-    req.params.timelogId,
-    req.body
-  );
+  const data = JSON.parse(req.body.data);
+  const timelog = await timelogService.updateTimelogById(req.params.timelogId, {
+    createdBy: req.body.createdBy,
+    ...data,
+  });
   res.send(timelog);
 };
 
