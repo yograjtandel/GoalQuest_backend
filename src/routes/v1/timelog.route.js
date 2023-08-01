@@ -8,13 +8,13 @@ router
   .route('/')
   //   .post(auth('manageProjects'), validate(projectValidation.createProject), timelogController.createProject)
   //   .post(permission('manage_project'), timelogController.createProject)
-  .post(timelogController.createProject)
-  .get(timelogController.getProjects);
+  .post(timelogController.createTimelog)
+  .get(timelogController.getTimelogs);
 
 router
-  .route('/:projectId')
-  .get(timelogController.getProject)
-  .patch(timelogController.updateProject)
-  .delete(timelogController.deleteProject);
+  .route('/:timelogId')
+  .get(timelogController.getTimelog)
+  .patch(timelogController.updateTimelog)
+  .delete(timelogController.deleteTimelog);
 
 module.exports = router;

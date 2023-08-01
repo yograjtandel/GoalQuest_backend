@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const {Task} = require('../models');
+const {Task, Stage} = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -21,6 +21,73 @@ const createTask = async taskBody => Task.create(taskBody);
 const queryTasks = async (filter, options) => {
   const tasks = await Task.paginate(filter, options);
   return tasks;
+};
+
+// [
+//     {
+//       $lookup: {
+//         from: 'stages',
+//         localField: 'stage',
+//         foreignField: '_id',
+//         as: 'display_sequence',
+//       },
+//     },
+//     {
+//       $set: {
+//         display_sequence: {
+//           $arrayElemAt: ['$display_sequence.display_sequence', 0],
+//         },
+//       },
+//     },
+//     {
+//       $group: {
+//         _id: {
+//           stage: `$${args.group}`,
+//           display_sequence: '$display_sequence',
+//         },
+//         tasks: {
+//           $push: '$$ROOT',
+//         },
+//       },
+//     },
+//     {
+//       $sort: {
+//         '_id.display_sequence': args.sort || 1,
+//       },
+//     },
+//   ]
+
+const getGroupbyTask = async args => {
+  const res = await Stage.aggregate([
+    {
+      $lookup:
+        /**
+         * from: The target collection.
+         * localField: The local join field.
+         * foreignField: The target join field.
+         * as: The name for the results.
+         * pipeline: Optional pipeline to run on the foreign collection.
+         * let: Optional variables to use in the pipeline field stages.
+         */
+        {
+          from: 'tasks',
+          localField: '_id',
+          foreignField: 'stage',
+          as: 'tasks',
+        },
+    },
+    {
+      $sort:
+        /**
+         * Provide any number of field/order pairs.
+         */
+        {
+          display_sequence: args.sort || 1,
+        },
+    },
+  ]);
+
+  return res;
 };
 
 /**
@@ -63,6 +130,7 @@ const deleteTaskById = async taskId => {
 module.exports = {
   createTask,
   queryTasks,
+  getGroupbyTask,
   getTaskById,
   updateTaskById,
   deleteTaskById,

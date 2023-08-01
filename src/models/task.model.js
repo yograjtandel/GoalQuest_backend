@@ -12,8 +12,7 @@ const taskSchema = mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
     },
     deadline: {
-      type: Date,
-      default: new Date(),
+      type: String,
     },
     description: {
       type: String,
@@ -31,10 +30,13 @@ const taskSchema = mongoose.Schema(
       type: [mongoose.SchemaTypes.ObjectId],
     },
     parent_task: {
-      type: mongoose.SchemaTypes.ObjectId,
+      type: [mongoose.SchemaTypes.ObjectId],
     },
     child_task: {
-      type: mongoose.SchemaTypes.ObjectId,
+      type: [mongoose.SchemaTypes.ObjectId],
+    },
+    time_logs: {
+      type: [mongoose.SchemaTypes.ObjectId],
     },
     stage: {
       type: mongoose.SchemaTypes.ObjectId,

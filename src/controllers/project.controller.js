@@ -11,6 +11,12 @@ const createProject = async (req, res) => {
 const getProjects = async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
+  const group = pick(req.query, ['group']);
+  if (Object.keys(group).length !== 0) {
+    const projects = await projectService.getGroupbyProject(group);
+    res.send(projects);
+    return;
+  }
   const result = await projectService.queryProjects(filter, options);
   res.send(result);
 };

@@ -8,3 +8,4 @@ module.exports.tagController = require('./tag.controller');
 module.exports.taskController = require('./task.controller');
 module.exports.timelogController = require('./timelog.controller');
 module.exports.userController = require('./user.controller');
+module.exports.dashboardController = require('./dashboard.controller');

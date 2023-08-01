@@ -17,10 +17,6 @@ const timelogSchema = mongoose.Schema(
       type: Date,
       default: new Date(),
     },
-    taskId: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'task',
-    },
     Note: {
       type: String,
     },
