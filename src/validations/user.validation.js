@@ -13,6 +13,10 @@ const createUser = {
 const getUsers = {
   query: Joi.object().keys({
     name: Joi.string(),
+    email: Joi.string().email({
+      minDomainSegments: 2,
+      tlds: {allow: ['com', 'net']},
+    }),
     role: Joi.string(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
@@ -20,6 +24,14 @@ const getUsers = {
   }),
 };
 
+const getUserByEmail = {
+  params: Joi.object().keys({
+    email: Joi.string().email({
+      minDomainSegments: 2,
+      tlds: {allow: ['com', 'net']},
+    }),
+  }),
+};
 const getUser = {
   params: Joi.object().keys({
     userId: Joi.string().custom(objectId),
@@ -48,6 +60,7 @@ const deleteUser = {
 module.exports = {
   createUser,
   getUsers,
+  getUserByEmail,
   getUser,
   updateUser,
   deleteUser,

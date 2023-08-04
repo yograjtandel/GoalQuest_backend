@@ -9,7 +9,7 @@ const createUser = async (req, res) => {
 };
 
 const getUsers = async (req, res) => {
-  const filter = pick(req.query, ['name', 'role']);
+  const filter = pick(req.query, ['name', 'role', 'email']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await userService.queryUsers(filter, options);
   res.send(result);
@@ -17,6 +17,14 @@ const getUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
   const user = await userService.getUserById(req.params.userId);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  res.send(user);
+};
+
+const getUserByEmail = async (req, res) => {
+  const user = await userService.getUserByEmail(req.params.email);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
@@ -37,6 +45,7 @@ module.exports = {
   createUser,
   getUsers,
   getUser,
+  getUserByEmail,
   updateUser,
   deleteUser,
 };
