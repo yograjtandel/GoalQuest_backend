@@ -1,13 +1,13 @@
 const httpStatus = require('http-status');
-const {Timelog} = require('../models');
+const {TimeLog} = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
  * Create a timelog
  * @param {Object} timelogBody
- * @returns {Promise<Timelog>}
+ * @returns {Promise<TimeLog>}
  */
-const createTimelog = async timelogBody => Timelog.create(timelogBody);
+const createTimelog = async timelogBody => TimeLog.create(timelogBody);
 
 /**
  * Query for timelogs
@@ -19,27 +19,27 @@ const createTimelog = async timelogBody => Timelog.create(timelogBody);
  * @returns {Promise<QueryResult>}
  */
 const queryTimelogs = async (filter, options) => {
-  const timelogs = await Timelog.paginate(filter, options);
+  const timelogs = await TimeLog.paginate(filter, options);
   return timelogs;
 };
 
 /**
  * Get timelog by id
  * @param {ObjectId} id
- * @returns {Promise<Timelog>}
+ * @returns {Promise<TimeLog>}
  */
-const getTimelogById = async id => Timelog.findById(id);
+const getTimelogById = async id => TimeLog.findById(id);
 
 /**
  * Update timelog by id
  * @param {ObjectId} timelogId
  * @param {Object} updateBody
- * @returns {Promise<Timelog>}
+ * @returns {Promise<TimeLog>}
  */
 const updateTimelogById = async (timelogId, updateBody) => {
   const timelog = await getTimelogById(timelogId);
   if (!timelog) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Timelog not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'TimeLog not found');
   }
   Object.assign(timelog, updateBody);
   await timelog.save();
@@ -49,12 +49,12 @@ const updateTimelogById = async (timelogId, updateBody) => {
 /**
  * Delete timelog by id
  * @param {ObjectId} timelogId
- * @returns {Promise<Timelog>}
+ * @returns {Promise<TimeLog>}
  */
 const deleteTimelogById = async timelogId => {
   const timelog = await getTimelogById(timelogId);
   if (!timelog) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Timelog not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'TimeLog not found');
   }
   await timelog.remove();
   return timelog;
