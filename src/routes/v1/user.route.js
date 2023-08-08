@@ -13,6 +13,10 @@ router
   .get(validate(userValidation.getUsers), userController.getUsers);
 
 router
+  .route('/:email')
+  .get(validate(userValidation.getUserByEmail), userController.getUserByEmail);
+
+router
   .route('/:userId')
   .get(validate(userValidation.getUser), userController.getUser)
   .patch(validate(userValidation.updateUser), userController.updateUser)

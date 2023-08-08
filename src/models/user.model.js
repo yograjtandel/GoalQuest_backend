@@ -22,19 +22,23 @@ const userSchema = mongoose.Schema(
         }
       },
     },
-    password: {
+    reporting_manager: {
       type: String,
-      required: true,
       trim: true,
-      minlength: 8,
       validate(value) {
-        if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
-          throw new Error(
-            'Password must contain at least one letter and one number'
-          );
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
         }
       },
-      private: true, // used by the toJSON plugin
+    },
+    Organisation: {
+      type: String,
+      trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
+        }
+      },
     },
     role: {
       type: mongoose.SchemaTypes.ObjectId,
