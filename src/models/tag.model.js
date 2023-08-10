@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 const {toJSON, paginate} = require('./plugins');
 
 const tagSchema = mongoose.Schema(
@@ -11,6 +12,15 @@ const tagSchema = mongoose.Schema(
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'user',
+    },
+    company: {
+      type: String,
+      trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
+        }
+      },
     },
   },
   {

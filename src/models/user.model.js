@@ -31,7 +31,7 @@ const userSchema = mongoose.Schema(
         }
       },
     },
-    Organisation: {
+    company: {
       type: String,
       trim: true,
       validate(value) {
@@ -43,6 +43,10 @@ const userSchema = mongoose.Schema(
     role: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'role',
+    },
+    createdBy: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'user',
     },
   },
   {

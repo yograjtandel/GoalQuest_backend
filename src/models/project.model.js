@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 const {toJSON, paginate} = require('./plugins');
 
 const projectSchema = mongoose.Schema(
@@ -13,12 +14,38 @@ const projectSchema = mongoose.Schema(
       default: '',
     },
     manager: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user',
+      type: String,
+      trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
+        }
+      },
     },
     stage: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'stage',
+      name: String,
+      id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'stage',
+      },
+    },
+    company: {
+      type: String,
+      trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
+        }
+      },
+    },
+    createdBy: {
+      type: String,
+      trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
+        }
+      },
     },
   },
   {

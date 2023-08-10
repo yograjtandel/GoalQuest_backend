@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 const {toJSON, paginate} = require('./plugins');
 
 const taskSchema = mongoose.Schema(
@@ -35,9 +36,6 @@ const taskSchema = mongoose.Schema(
     child_task: {
       type: [mongoose.SchemaTypes.ObjectId],
     },
-    time_logs: {
-      type: [mongoose.SchemaTypes.ObjectId],
-    },
     stage: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'stage',
@@ -49,6 +47,15 @@ const taskSchema = mongoose.Schema(
     time_logs: {
       type: [mongoose.SchemaType.ObjectId],
       ref: 'timelog',
+    },
+    company: {
+      type: String,
+      trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
+        }
+      },
     },
   },
   {

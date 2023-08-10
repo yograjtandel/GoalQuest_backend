@@ -7,6 +7,7 @@ const {
   userService,
   tagService,
   stageService,
+  roleService,
 } = require('../services');
 
 const createTask = async (req, res) => {
@@ -22,12 +23,14 @@ const getTaskinitialData = async (req, res) => {
   const tags = await tagService.queryTags(filter, options);
   const stags = await stageService.queryStages(filter, options);
   const managers = await userService.queryUsers(filter, options);
+  const roles = await roleService.queryRoles(filter, options);
   res.send({
     projects: projects.results,
     users: users.results,
     tags: tags.results,
     stags: stags.results,
     managers: managers.results,
+    roles: roles.results,
   });
 };
 
