@@ -13,8 +13,13 @@ const roleSchema = mongoose.Schema(
       type: [String],
     },
     createdBy: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user',
+      type: String,
+      trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
+        }
+      },
     },
     company: {
       type: String,

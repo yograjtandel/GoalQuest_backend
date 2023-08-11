@@ -9,8 +9,12 @@ const taskSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
-    project_id: {
-      type: mongoose.SchemaTypes.ObjectId,
+    project: {
+      id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'project',
+      },
+      name: String,
     },
     deadline: {
       type: String,
@@ -24,25 +28,86 @@ const taskSchema = mongoose.Schema(
       default: 'low',
     },
     createdBy: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'user',
+      type: String,
+      trim: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error('Invalid email');
+        }
+      },
     },
     asignee: {
-      type: [mongoose.SchemaTypes.ObjectId],
+      type: [
+        {
+          type: String,
+          trim: true,
+          validate(value) {
+            if (!validator.isEmail(value)) {
+              throw new Error('Invalid email');
+            }
+          },
+        },
+      ],
     },
     parent_task: {
-      type: [mongoose.SchemaTypes.ObjectId],
+      id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'project',
+      },
+      name: String,
+      manager: {
+        type: String,
+        trim: true,
+        validate(value) {
+          if (!validator.isEmail(value)) {
+            throw new Error('Invalid email');
+          }
+        },
+      },
+      stage: {
+        title: String,
+        id: {
+          type: mongoose.SchemaTypes.ObjectId,
+          ref: 'stage',
+        },
+      },
     },
     child_task: {
-      type: [mongoose.SchemaTypes.ObjectId],
+      type: [
+        {
+          id: {
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: 'project',
+          },
+          name: String,
+          stage: {
+            title: String,
+            id: {
+              type: mongoose.SchemaTypes.ObjectId,
+              ref: 'stage',
+            },
+          },
+          priority: {
+            type: String,
+            enum: ['low', 'medium', 'high', 'urgent'],
+            default: 'low',
+          },
+        },
+      ],
     },
     stage: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'stage',
+      title: String,
+      id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'stage',
+      },
     },
     tag: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'tag',
+      title: String,
+      id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'tag',
+      },
     },
     time_logs: {
       type: [mongoose.SchemaType.ObjectId],

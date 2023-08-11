@@ -23,7 +23,7 @@ const projectSchema = mongoose.Schema(
       },
     },
     stage: {
-      name: String,
+      title: String,
       id: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'stage',

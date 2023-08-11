@@ -9,7 +9,7 @@ const createProject = async (req, res) => {
 };
 
 const getProjects = async (req, res) => {
-  const filter = pick(req.query, ['name', 'role']);
+  const filter = pick(req.query, ['name', 'role', 'company']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const group = pick(req.query, ['group']);
   if (Object.keys(group).length !== 0) {

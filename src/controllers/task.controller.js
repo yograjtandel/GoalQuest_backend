@@ -16,12 +16,15 @@ const createTask = async (req, res) => {
 };
 
 const getTaskinitialData = async (req, res) => {
-  const filter = pick(req.query, ['name', 'task']);
+  const filter = pick(req.query, ['name', 'task', 'company']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const projects = await projectService.queryProjects(filter, options);
   const users = await userService.queryUsers(filter, options);
   const tags = await tagService.queryTags(filter, options);
-  const stags = await stageService.queryStages(filter, options);
+  const stags = await stageService.queryStages(
+    {...filter, company: {$eq: null}},
+    options
+  );
   const managers = await userService.queryUsers(filter, options);
   const roles = await roleService.queryRoles(filter, options);
   res.send({

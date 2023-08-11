@@ -71,7 +71,7 @@ const getGroupbyProject = async args => {
         {
           from: 'projects',
           localField: '_id',
-          foreignField: 'stage',
+          foreignField: 'stage.id',
           as: 'projects',
         },
     },
