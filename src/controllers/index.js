@@ -1,0 +1,11 @@
+// module.exports.authController = require('./auth.controller');
+module.exports.userController = require('./user.controller');
+module.exports.projectController = require('./project.controller');
+module.exports.roleController = require('./role.controller');
+module.exports.rightController = require('./rights.controller');
+module.exports.stageController = require('./stage.controller');
+module.exports.tagController = require('./tag.controller');
+module.exports.taskController = require('./task.controller');
+module.exports.timelogController = require('./timelog.controller');
+module.exports.userController = require('./user.controller');
+module.exports.dashboardController = require('./dashboard.controller');
