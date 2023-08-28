@@ -36,7 +36,7 @@ const taskSchema = mongoose.Schema(
         }
       },
     },
-    asignee: {
+    assignee: {
       type: [
         {
           type: String,
